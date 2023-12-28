@@ -15,13 +15,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // $pdo = DB::connection()->getPdo();
-    // $user = $pdo->query('select * from users')->fetchAll();
+    $users = DB::table('users')->get();
+    $users = DB::table('users')->select()->get();
+    $users = DB::table('users')->pluck('email');
+    $user = DB::table('users')->where('name', 'Lora Bradtke')->first();
+    $user = DB::table('users')->where('name', 'Lora Bradtke')->first()->email;
+    $user = DB::table('users')->where('name', 'Lora Bradtke')->value('email');
+    $user = DB::table('users')->find(1);
 
-    $result = DB::select('select * from users where id =? and name=?',[1, 'Mrs. Rosalind Marquardt I']);
-    $result2 = DB::select('select * from users where id =:id',['id'=>1]);
-    // DB::insert('insert into users(name, email, password) values(?, ?, ?)',['inserted name','inserted@gmail.com','123456']);
-    $result3 = DB::table('users')->select()->get();
-    dump($result3);
+    $comments = DB::table('comments')->select('content')->get();
+    $comments = DB::table('comments')->select('content as comment_content')->get();
+
+    $comments = DB::table('comments')->select('user_id')->get();
+    $comments = DB::table('comments')->select('user_id')->distinct()->get();
+    dump($comments);
     return view('welcome');
 });
