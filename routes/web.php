@@ -15,19 +15,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $users = DB::table('users')->get();
-    $users = DB::table('users')->select()->get();
-    $users = DB::table('users')->pluck('email');
-    $user = DB::table('users')->where('name', 'Lora Bradtke')->first();
-    $user = DB::table('users')->where('name', 'Lora Bradtke')->first()->email;
-    $user = DB::table('users')->where('name', 'Lora Bradtke')->value('email');
-    $user = DB::table('users')->find(1);
 
-    $comments = DB::table('comments')->select('content')->get();
-    $comments = DB::table('comments')->select('content as comment_content')->get();
+    $rooms = DB::table('rooms')->get();
+    $rooms = DB::table('rooms')->where('price', 234)->get();
+    $rooms = DB::table('rooms')->where('price', '>', 500)->get();
+    $rooms = DB::table('rooms')->where([
+        ['room_size', 2],
+        ['price', '>', 500]
+    ])->get();
 
-    $comments = DB::table('comments')->select('user_id')->get();
-    $comments = DB::table('comments')->select('user_id')->distinct()->get();
-    dump($comments);
+    $rooms = DB::table('rooms')
+        ->where('room_size', 2)
+        ->orWhere('price', '>', 600)
+        ->get();
+    dump($rooms);
+
+    $rooms = DB::table('rooms')
+    ->where('price', 500)
+    ->orWhere(function ($query) {
+        $query->where('room_size', '>', 1)
+        ->where('room_size', '<', 3);
+    })->get();
     return view('welcome');
 });
