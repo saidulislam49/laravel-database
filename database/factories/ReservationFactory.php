@@ -17,7 +17,10 @@ class ReservationFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'user_id' => fake()->numberBetween(1, 3),
+            'room_id' => fake()->numberBetween(1, 10),
+            'check_in' => fake()->dateTimeBetween('-10 days', 'now'),
+            'check_out' => fake()->dateTimeBetween('now', '+10 days'),
         ];
     }
 }

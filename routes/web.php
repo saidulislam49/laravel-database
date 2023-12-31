@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Room;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -16,25 +17,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    $rooms = DB::table('rooms')->get();
-    $rooms = DB::table('rooms')->where('price', 234)->get();
-    $rooms = DB::table('rooms')->where('price', '>', 500)->get();
-    $rooms = DB::table('rooms')->where([
-        ['room_size', 2],
-        ['price', '>', 500]
-    ])->get();
+    $rooms = DB::table('rooms')->whereBetween('room_size', [3, 4])->get();
+    $rooms = DB::table('rooms')->whereNotBetween('room_size', [1, 3])->get();
 
-    $rooms = DB::table('rooms')
-        ->where('room_size', 2)
-        ->orWhere('price', '>', 600)
-        ->get();
+    $rooms = DB::table('rooms')->whereIn('id', [1, 2, 3])->get();
+    $rooms = DB::table('rooms')->whereNotIn('id', [1, 2, 3])->get();
+
+    $rooms = DB::table('rooms')->whereNull('room_size')->get();
+    $rooms = DB::table('rooms')->whereNotNull('room_size')->get();
+
+    $rooms = DB::table('rooms')->whereDate('created_at', '2023-11-30')->get();
+    $rooms = DB::table('rooms')->whereDay('created_at', '28')->get();
+    $rooms = DB::table('rooms')->whereMonth('created_at', '11')->get();
+    $rooms = DB::table('rooms')->whereYear('created_at', '2023')->get();
+    $rooms = DB::table('rooms')->whereTime('created_at', '14:23:56')->get();
     dump($rooms);
-
-    $rooms = DB::table('rooms')
-    ->where('price', 500)
-    ->orWhere(function ($query) {
-        $query->where('room_size', '>', 1)
-        ->where('room_size', '<', 3);
-    })->get();
     return view('welcome');
 });
