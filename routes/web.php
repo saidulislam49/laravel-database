@@ -16,10 +16,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+<<<<<<< HEAD
+    $result = DB::table('users')->select()->get();
+=======
 
     $result = DB::table('comments')->skip(3)->take(5)->get();
     $result = DB::table('comments')->offset(4)->limit(5)->get();
 
+>>>>>>> 0ed456c28e98ff27633d18b8505e77ff696bace9
     dump($result);
     return view('welcome');
 });
