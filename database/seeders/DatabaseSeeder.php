@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CommentSeeder::class,
             RoomSeeder::class,
+            CitySeeder::class,
             ReservationSeeder::class,
         ]);
     }
