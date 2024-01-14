@@ -17,7 +17,7 @@ class RoomFactory extends Factory
     public function definition()
     {
         return [
-            'room_number' => fake()->unique()->numberBetween(1, 30),
+            'room_number' => fake()->unique()->numberBetween(100, 300),
             'room_size' => fake()->numberBetween(1, 5),
             'price' => fake()->numberBetween(100, 600),
             'description' => fake()->text(1000)
