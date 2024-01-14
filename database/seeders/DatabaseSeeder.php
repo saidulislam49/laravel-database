@@ -22,11 +22,14 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
+            CompanySeeder::class,
             UserSeeder::class,
             CommentSeeder::class,
             RoomSeeder::class,
             CitySeeder::class,
             ReservationSeeder::class,
+            AddressSeeder::class,
+            CityRoomSeeder::class,
         ]);
     }
 }

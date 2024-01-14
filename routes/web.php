@@ -1,6 +1,10 @@
 <?php
 
+use App\Models\Address;
+use App\Models\City;
 use App\Models\Comment;
+use App\Models\Company;
+use App\Models\Reservation;
 use App\Models\Room;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -19,19 +23,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    // $rooms = Room::where('room_size','>',3)->get();
-    // $rooms = Room::get(); //same as all()
-    // $rooms = Room::all();
+    $result = Company::find(2);
 
-    $users = User::select('name','email')
-            ->addSelect(['worst_rating' => Comment::select('rating')
-            ->whereColumn('user_id','users.id')
-            ->orderBy('rating','asc')
-            ->limit(1)
-            ])
-            ->get()->toArray();
-    dump($users);
-
+    dump($result->reservations);
 
     return view('welcome');
 });
